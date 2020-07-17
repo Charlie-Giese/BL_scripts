@@ -20,16 +20,16 @@ for file in os.listdir():
 		names=["DM", "Duration", "time", "S/N", "length"]
 		data=pd.read_csv(file, sep='\s+', skiprows=1, names=names) 
 		DM=data["DM"].values
-		time=(data["time"].values)/1000
+		time=(data["time"].values)*(163.84*(10**(-6)))
 		SN=data["S/N"].values
 		width=2**(data["Duration"].values)
 		pul=ax1.scatter(time, DM,
-		s=width/500, c=(SN-10), cmap="plasma",
-		vmin=np.min(SN-10), vmax=np.max(SN-10))
+		s=width, c=(SN), cmap="plasma",
+		vmin=np.min(SN), vmax=np.max(SN))
 		continue
 	else:
 		continue   
-
+print(time)
 ax1.set_xlabel("time (s)")
 ax1.set_ylabel("DM (pc/cc)")
 ax1.set_title(sys.argv[1])

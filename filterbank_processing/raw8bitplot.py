@@ -14,7 +14,7 @@ ax1=fig1.add_subplot(111)
 
 
 names=["time", "channel", "Amp"]
-data=pd.read_csv(sys.argv[1], sep='\s+', skiprows=1, names=names)
+data=pd.read_csv(sys.argv[1], sep='\s+', skiprows=0, names=names)
 tim=data["time"].values
 freq=data["channel"].values
 amp=data["Amp"].values
@@ -23,7 +23,7 @@ c=(amp), cmap="viridis",
 vmin=np.min(amp), vmax=np.max(amp))
 ax1.set_xlabel("Time")
 ax1.set_ylabel("Frequency")
-ax1.set_title(sys.argv[2])
+ax1.set_title("test")
 cbar=fig1.colorbar(plot)
 cbar.set_label("S/N")
 plt.savefig(sys.argv[2])

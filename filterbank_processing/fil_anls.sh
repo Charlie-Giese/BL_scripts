@@ -17,12 +17,11 @@ sigproc=/home/obs/Evan/sigproc/src
 
 
 
-$sigproc/decimate $file -t 8 -c 1 -n 8 > lb.fil
-$sigproc/chop_fil lb.fil -s $tim -r $bw > lb.chop.fil
+#$sigproc/decimate $file -t 8 -c 1 -n 8 > lb.fil
+$sigproc/chop_fil $file -s $tim -r $bw > lb.chop.fil
 $sigproc/reader lb.chop.fil > lb.ascii 
-awk '{for (i=0;i<96;i++) printf "%f %d %f\n",$1,i,$i}' lb.ascii >  $name".ascii"
+awk '{for (i=0;i<488;i++) printf "%f %d %f\n",$1,i,$i}' lb.ascii >  $name".ascii"
 python3 raw8bitplot.py $name".ascii" $name
 rm lb.fil
 rm lb.chop.fil
 rm lb.ascii
-rm $name".ascii"

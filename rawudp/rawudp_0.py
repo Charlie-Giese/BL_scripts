@@ -3,7 +3,6 @@
 
 
 import numpy as np
-import matplotlib.pyplot as plt
 import os
 import sys
 
@@ -26,49 +25,37 @@ file1=np.fromfile(file1, dtype=np.int8)
 file2=np.fromfile(file2, dtype=np.int8)
 file3=np.fromfile(file3, dtype=np.int8)
 
-#file0=file0.reshape(8203104, 488)
-#file1=file1.reshape(8203104, 488)
-#file2=file2.reshape(8203104, 488)
-#file3=file3.reshape(8203104, 488)
+file0=file0.reshape(-1, 488)
+file1=file1.reshape(-1, 488)
+file2=file2.reshape(-1, 488)
+file3=file3.reshape(-1, 488)
 
 stokesI=np.empty_like(file0, dtype=np.int32)
-chunksize=15637167
+chunksize=int(stokesI.shape[0] / 256)
 for i in range(256):
     stokesI[i*chunksize:(i+1)*chunksize] =(
-    np.square(file0[i * chunksize: (i+1) * chunksize].astype(np.int32)) +
-    np.square(file1[i * chunksize: (i+1) * chunksize].astype(np.int32)) +
-    np.square(file2[i * chunksize: (i+1) * chunksize].astype(np.int32)) +
-    np.square(file3[i * chunksize: (i+1) * chunksize].astype(np.int32)))
+    np.square(file0[i * chunksize: (i+1) * chunksize, :].astype(np.int32)) +
+    np.square(file1[i * chunksize: (i+1) * chunksize, :].astype(np.int32)) +
+    np.square(file2[i * chunksize: (i+1) * chunksize, :].astype(np.int32)) +
+    np.square(file3[i * chunksize: (i+1) * chunksize, :].astype(np.int32)))
 
-#stokesI=stokesI.reshape(4003114752, )
-
-
-
-stokesI.tofile("1936_I.fil", format="%f")
-
-
-
-"""
-freqs=np.linspace(197.55855375, 102.4414063, 488) #in MHz
-
-def tdelay(freq):
-    tdelay=235538.73/(np.square(freq))
-    return tdelay #in MHz
-
-
-for i in range(487):
-    file0[:, i]=(file0[:, i+tdelay(freq[i])).astype(np.int32)
-    file1[:, i]=(file0[:, i]-tdelay(freq[i])).astype(np.int32)
-    file2[:, i]=(file0[:, i]-tdelay(freq[i])).astype(np.int32)
-    file3[:, i]=(file0[:, i]-tdelay(freq[i])).astype(np.int32)
+mean_list=[]
+chan_list=[]
+for i in range(488):
+    chan=stokesI[:, i]
+    temp=np.mean(chan, axis=0)
+    mean_list.append(temp)
+    chan_list.append(i)
+means=np.array(mean_list)
+indices=np.argwhere(means >= 100)
 
 
 
-im=plt.imshow(stokesI, cmap="viridis", aspect="auto")
-plt.title("Stokes I")
-cbar=plt.colorbar(im)
-cbar.set_label("Stokes I")
-plt.xlabel("Freq Channel")
-plt.ylabel("Time")
-plt.savefig(sys.argv[2])
-"""
+stokesI[:,indices ]=0
+stokesI[:,[356,462,463,465]]=0
+np.save("1936I.npy", stokesI.astype(np.float32))
+
+#stokesI.astype(np.float32).tofile("1936I_rmrfi.fil")
+
+
+
