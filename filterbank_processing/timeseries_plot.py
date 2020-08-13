@@ -11,24 +11,16 @@ from matplotlib import colors
 
 fig1=plt.figure(1)
 ax1=fig1.add_subplot(111)
-
+file_name=sys.argv[1]
 
 names=["Time", "S/N"]
-data=pd.read_csv(sys.argv[1], sep='\s+', skiprows=1, names=names) 
+data=pd.read_csv(file_name+'.ascii', sep='\s+', skiprows=1, names=names) 
 time=data["Time"].values
 SN=data["S/N"].values
 
-#rolling mean
-#N=5
-#SN2=np.zeros_like(SN)
-#for i in range(SN.size):
- #   SN2[i]=np.sum(SN[i-N:i+N])/(2*N + 1)
-
 pul=ax1.plot(time, SN)
 ax1.set_xlabel("Time (s)")
-#ax1.set_xlim(0, 5)
-#ax1.set_ylim(15000, 22000)
 ax1.set_ylabel("S/N)")
-ax1.set_title("1936_I Timeseries")
-plt.savefig("ts_1936I_rmrfi.png")
+ax1.set_title(file_name)
+plt.savefig(file_name+'timeseries.png')
 

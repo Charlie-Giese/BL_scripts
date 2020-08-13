@@ -24,11 +24,10 @@ vmin=np.min(amp), vmax=np.max(amp))
 ax1.set_xlabel("Time")
 ax1.set_ylabel("Frequency")
 ax1.set_title('Lorimer Burst Pulse (Beam 6)')
-ax1.set_xlim(6,8)
 cbar=fig1.colorbar(plot)
 cbar.set_label("S/N")
 plt.savefig(sys.argv[2])
-#plt.show()
+
 
 
 

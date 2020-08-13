@@ -347,8 +347,4 @@ for i in range(Nsets):
     output.close()
     if (i % 8203104*N==0):
         band += 1
-#here t is the array of time values
-#timeseries is the complex voltage data
-#central freq is the central freq of each subband in MHz
-#sample rate is sample rate in MS/s
-#dm is dm in pc/cc
+
