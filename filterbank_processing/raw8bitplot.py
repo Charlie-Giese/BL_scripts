@@ -14,16 +14,17 @@ ax1=fig1.add_subplot(111)
 
 
 names=["time", "channel", "Amp"]
-data=pd.read_csv(sys.argv[1], sep='\s+', skiprows=0, names=names)
+data=pd.read_csv(sys.argv[1], sep='\s+', skiprows=1, names=names)
 tim=data["time"].values
-freq=data["channel"].values
+freq=np.flip(data["channel"].values)
 amp=data["Amp"].values
 plot=ax1.scatter(tim, freq,
 c=(amp), cmap="viridis",
 vmin=np.min(amp), vmax=np.max(amp))
 ax1.set_xlabel("Time")
 ax1.set_ylabel("Frequency")
-ax1.set_title("test")
+ax1.set_title('Lorimer Burst Pulse (Beam 6)')
+ax1.set_xlim(6,8)
 cbar=fig1.colorbar(plot)
 cbar.set_label("S/N")
 plt.savefig(sys.argv[2])

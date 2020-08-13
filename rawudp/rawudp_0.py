@@ -39,6 +39,14 @@ for i in range(256):
     np.square(file2[i * chunksize: (i+1) * chunksize, :].astype(np.int32)) +
     np.square(file3[i * chunksize: (i+1) * chunksize, :].astype(np.int32)))
 
+stokesI=np.empty_like(file0, dtype=np.int32)
+chunksize=int(stokesI.shape[0] / 256)
+for i in range(256):
+    stokesI[i*chunksize:(i+1)*chunksize] =(
+    np.square(file0[i * chunksize: (i+1) * chunksize, :].astype(np.int32)) +
+    np.square(file1[i * chunksize: (i+1) * chunksize, :].astype(np.int32)) +
+    np.square(file2[i * chunksize: (i+1) * chunksize, :].astype(np.int32)) +
+    np.square(file3[i * chunksize: (i+1) * chunksize, :].astype(np.int32)))
 mean_list=[]
 chan_list=[]
 for i in range(488):
@@ -51,8 +59,8 @@ indices=np.argwhere(means >= 100)
 
 
 
-stokesI[:,indices ]=0
-stokesI[:,[356,462,463,465]]=0
+stokesI[:,indices ]=1
+stokesI[:,[356,462,463,465]]=1
 np.save("1936I.npy", stokesI.astype(np.float32))
 
 #stokesI.astype(np.float32).tofile("1936I_rmrfi.fil")
