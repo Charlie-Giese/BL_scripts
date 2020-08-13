@@ -3,6 +3,13 @@ import os
 import numpy as np
 import mmap
 
+"""
+Slightly Modified version of Griffin Foster's dedispersion.py script for coherent dedispersion.
+https://github.com/griffinfoster/frb180301-analysis
+"""
+
+
+
 subbands=488
 f_top=197.55859375e6
 f_off=-0.1953125e6

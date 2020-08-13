@@ -3,7 +3,8 @@ import os
 import numpy as np
 
 """
-NOT WORKING 
+NOT WORKING
+Based on Griffin Foster's notebook for incoherent dedispersion
 """
 
 

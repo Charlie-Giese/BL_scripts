@@ -4,6 +4,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import datetime
 
+"""
+Based on script by David McKenna, LOFAR, Ireland
+Not fully working right now
+"""
+
+
 path='/mnt/ucc2_data1/data/giesec/J0218+4232/20200626040200J0218+4232/rawudp/'
 nchans = 488
 sampleRate = 5.12 * 10** -6

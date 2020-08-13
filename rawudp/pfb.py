@@ -6,7 +6,11 @@ import matplotlib.pyplot as plt
 import os
 import sys
 
-
+"""
+Polyphase filterbank for use on .rawudp files as processed at LOFAR
+Based on tutorial by Danny Price
+https://github.com/telegraphic/pfb_introduction
+"""
 
 
 def load_data(path, prefix, suffix, subbands, chunks)
