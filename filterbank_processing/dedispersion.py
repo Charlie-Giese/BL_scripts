@@ -2,6 +2,12 @@
 import os
 import numpy as np
 
+"""
+NOT WORKING 
+"""
+
+
+
 path='/mnt/ucc2_data1/data/giesec/crab/'
 output_file=path+'incoherent_dd/1936I_dd.fil'
 input_file=path+'raw_filterbank_files/1936_I1.fil'
@@ -93,7 +99,7 @@ def incoherent(freq, waterfall, tInt, dm, boundary='wrap', fill_value=np.nan):
 
 with open(input_file, "rb") as f:
     map0 = np.memmap(f, mode="r", dtype=np.int8)
-    file=np.array(map0).astype(np.int32)
+    file=np.array(map-1).astype(np.int32)
     del map0
 f.close()
 frequencies=freq_array(nchans, f_top, f_off)

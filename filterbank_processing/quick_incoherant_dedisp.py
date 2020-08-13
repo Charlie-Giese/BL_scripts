@@ -100,3 +100,8 @@ main(s0, s1, s2, s3, delayFunc, dm, decimate = 0)
 
 
 
+<<<<<<< HEAD
+=======
+	print("Starting dedispersion...")
+	main(s0, s1, s2, s3, args.delayFunc, args.dm, args.decimate)
+>>>>>>> 79e1de97d91c5962f412478307510f1405af3e99

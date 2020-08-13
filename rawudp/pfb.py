@@ -7,6 +7,8 @@ import os
 import sys
 
 
+
+
 def load_data(path, prefix, suffix, subbands, chunks)
     #file crab_giant_pulses1_2020-03-17T17:06:12,_17901776.rawudp
 
@@ -161,7 +163,7 @@ def spec_plot(t_start, t_stop, sample_time, x, y, n_taps, n_chan, n_int, path, p
     stokesI.astype(np.float32).tofile(n_chan+"_pfb_stokesI.fil")
     np.save(n_chan+'_pfb_stokesI.npy', stokesI.astype(np.int32))
 
-output=def spec_plot(t_start, t_stop, sample_time, n_taps, n_chan, n_int, path, prefix, 
+output=spec_plot(t_start, t_stop, sample_time, n_taps, n_chan, n_int, path, prefix, 
                      suffix, subbands, chunks):
 """
 t_start=time in seconds of where to start pfb input

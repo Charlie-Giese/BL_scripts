@@ -7,7 +7,7 @@ import sys
 import os
 from matplotlib import colors
 
-#This code plots DM vs Time with SN being represented by colour
+#This code plots DM vs Time with SN being represented by colour, using multiple pls files from multiple DM trials
 
 fig1=plt.figure(1)
 ax1=fig1.add_subplot(111)
