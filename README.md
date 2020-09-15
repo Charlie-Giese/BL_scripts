@@ -9,3 +9,6 @@ Scripts in filterbank_processing were used mainly for plotting various aspects o
 Sigproc is most easily installed using psrsoft or from source.
 
 Scripts are not super well documented right now, but most only need input constants and file locations to 'just work'
+
+See also a detailed report of the work carried out during this internship, some changes are still in works but it's definitely 98% done.
+
