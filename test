@@ -116,12 +116,13 @@ singularity exec /datax2/obs/singularity/pulsar-gpu-dsp2020-2020-09-30-e2396dc1b
         -a $fakeHeader \
 
 rawspec \
-        -f 8 \ #FFT lengths
+        -f 65536 \ #FFT lengths     
+        #for 3Hz resolution need 31981568 fine channels, i.e. 31981568/488=65536 fine channels per coarse channel
         -t 2 \ #spectra to integrate
         $input_file \
 
 
-turboSETI
+turboSETI $inputfile'.rawspec.0000.fil'
         -M $max_drift \  #max drift rate to search up to
         -s $SNR_threshold \ #signal/noise threshold to use
         -o $out_dir #output directory for .dat file
