@@ -2,12 +2,9 @@
 
 #Script for converting .zst files to filterbank format and then searching the file using turboSETI
 
-cwd=$(pwd)
-
-
 script=test
 #Declare the number of mandatory args
-margs=3
+margs=2
 
 
 function example {
@@ -20,25 +17,42 @@ function usage {
 
 function help {
   usage
-  echo -e "MANDATORY:"i
-  echo -e "  -d, --input_dir      directory containing compressed files"
-  echo -e "  -i, --input_file      The suffix of the .zst file name"
-  echo -e "  -a, --fakeHeader      The fakeHeader to supply to lofar_udp_guppi_raw\n"
+  echo -e "MANDATORY:"
+  echo -e "  -i, --input_file 	   The suffix of the .zst file name"
+  echo -e "  -a, --fakeHeader  	   The fakeHeader to supply to lofar_udp_guppi_raw\n"
   echo -e "OPTION:"
-  echo -e "  -m, --max_drift       The maximum drift rate to search to"
+  echo -e "  -m, --max_drift	   The maximum drift rate to search to"
   echo -e "  -s, --SNR_thresh         The SNR threshold for doppler drift search"
-  echo -e "  -p, --packets_iter            The number of packets per iteration to supply to lofar_udp_guppi_raw"
-  echo -e "  -e, --iter_file       The number of iterations per file to supply to lofar_udp_guppi_raw"
+  echo -e "  -p, --packets_iter  	   The number of packets per iteration to supply to lofar_udp_guppi_raw"
+  echo -e "  -e, --iter_file   	   The number of iterations per file to supply to lofar_udp_guppi_raw"
+  echo -e "  -o, --out_dir            Directory to save output of doppler search to"
   echo -e "  -h,  --help              Prints this help message\n"
   example
 }
 
-# Ensures that all the mandatory args are not em
+
+# Ensures that the number of passed args are at least equal to the declared number of mandatory args.
+# It also handles the special case of the -h or --help arg.
+function margs_precheck {
+	if [ $2 ] && [ $1 -lt $margs ]; then
+		if [ $2 == "--help" ] || [ $2 == "-h" ]; then
+			help
+			exit
+		else
+	    	usage
+                echo 'this is from the margs_precheck'
+			example
+	    	exit 1 # error
+		fi
+	fi
+}
+
+# Ensures that all the mandatory args are not em	
 
 #if [ $# -lt $margs ]; then
 #    usage
 #    echo 'this is from the args check'
-#       example
+#  	example
 #    exit 1 # error
 #fi
 
@@ -46,11 +60,10 @@ function help {
 # Main
 margs_precheck $# $1
 
-input_dir=
 input_file=
 header=
 max_drift=10 #Hz/s
-snr=25
+snr=25		 
 out_dir=pwd
 n_coarse_chan=488
 packets_per_iteration=4096
@@ -61,58 +74,57 @@ iterations_per_file=1
 while [ "$1" != "" ];
 do
    case $1 in
-   -d | --input_dir )     shift
-                          input_dir=$1
-                          ;;
    -i | --inputfile )     shift
                           input_file=$1
                           ;;
    -a | --fakeHeader )    shift
-                          header=$1
-                          ;;
+   			  header=$1
+			  ;;
    -m | --max_drift  )    shift
-                          max_drift=$1
+   			  max_drift=$1
                           ;;
    -s | --SNR_thresh  )   shift
                           snr=$1
                           ;;
+   -o | --out_dir )	  shift  
+                          out_dir=$1
+                          ;;    
    -n | --n_coarse_chan ) shift
-                          n_coarse_chan=$1
-                          ;;
+   			  n_coarse_chan=$1
+   			  ;;
    -h | --help )          help
                           exit
                           ;;
-   *)
+   *)                     
                           echo "$script: illegal option $1"
                           usage
-						  example
-                          exit 1 # error
+			  example
+		          exit 1 # error
                           ;;
     esac
     shift
 done
 
-echo "Working on $input_file in $input_dir"
-echo "Using header file: $header"
-echo "Maximum drift rate for drift search is $max_drift"
-echo "SNR threshold for drift search is $snr"
-echo "The .dat file with drift search results is being saved in $out_dir"
-#echo "$n_coarse_chan"
+echo "$input_file"
+echo "$header"
+echo "$max_drift"
+echo "$snr"
+echo "$out_dir"
+echo "$n_coarse_chan"
 
-mkdir $cwd"/raws/"
 
-singularity exec /datax2/obs/singularity/pulsar-gpu-dsp2020-2020-09-30-e2396dc1bde5.simg lofar_udp_guppi_raw -i $input_dir"/udp_1613%d."$input_file".zst" -o $cwd"/raws/"$input_file".%04d.raw" -m $packets_per_iteration -e $iterations_per_file -a $header -s 300
 
-rawspec -f 65536 -t 2 $cwd"/raws/"$input_file
+singularity exec /datax2/obs/singularity/pulsar-gpu-dsp2020-2020-09-30-e2396dc1bde5.simg lofar_udp_guppi_raw -i "/datax2/obs/B1929+21_Nov2_BL_record/20201102172211B1919+21/udp_1613%d."$input_file".zst" -o $input_file".%04d.raw" -m $packets_per_iteration -e $iterations_per_file -a $header -s 300
+
+rawspec -f 65536 -t 2 $input_file     
 #for 3Hz resolution need 31981568 fine channels, i.e. 31981568/488=65536 fine channels per coarse channel
 
-mv $cwd"/raws/"$input_file".rawspec.0000.fil" ..
-
-turboSETI "$cwd"$inputfile".rawspec.0000.fil"
+turboSETI $inputfile".rawspec.0000.fil"
         -M $max_drift \  #max drift rate to search up to
         -s $snr \ #signal/noise threshold to use
-		-o $out_dir \ #output directory for .dat file
-        #-l LOGLEVEL
-        #-c COARSE_CHANS
+        -o $out_dir #output directory for .dat file
+        #-l LOGLEVEL 
+        #-c COARSE_CHANS 
         -n $n_coarse_chan #number of course channels, default for LOFAR is 488
         #-p N_PARALLEL
+
