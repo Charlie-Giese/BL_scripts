@@ -7,6 +7,8 @@ import time
 import re
 import pandas as pd
 
+#script for plotting spectral and drift rate occupancy of hits
+
 fontsize=16
 font = {'family' : 'DejaVu Sans',
 'size' : fontsize}

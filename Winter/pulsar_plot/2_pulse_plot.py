@@ -8,11 +8,11 @@ import matplotlib
 from sigpyproc.Readers import readTim
 from astropy.time import Time
 
-parser = argparse.ArgumentParser(description='Plot pulse profile')
-parser.add_argument("-i", "--inputfiles", nargs='+', help=".time files, IR then SE")
-parser.add_argument("-s", "--time_start", help="Start point for plotting")
-parser.add_argument("-e", "--time_end", help="End point for plotting")
-parser.add_argument("-o", "--outputfile", help="Name of output")
+parser = argparse.ArgumentParser(description='Plot .tim timeseries files')
+parser.add_argument("-i", "--inputfiles", nargs='+', help=".tim files, IR then SE")
+parser.add_argument("-s", "--time_start", help="Start time for plotting")
+parser.add_argument("-e", "--time_end", help="End time for plotting")
+parser.add_argument("-o", "--outputfile", help="Name of output .png")
 args = parser.parse_args()
 inputfiles = args.inputfiles
 time_start = float(args.time_start)

@@ -8,7 +8,7 @@ import matplotlib
 from sigpyproc.Readers import readTim
 
 
-parser = argparse.ArgumentParser(description='Plot pulse profile')
+parser = argparse.ArgumentParser(description='Timeseries plotting')
 parser.add_argument("-i", "--inputfile", help=".time file")
 parser.add_argument("-s", "--time_start", help="Start point for plotting")
 parser.add_argument("-e", "--time_end", help="End point for plotting")

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#This was my attempt at making processing 1-step. Feel free to use this if you want to make something like that work.
+
+
 script=lofar_proc
 #Declare the number of mandatory args
 margs=3

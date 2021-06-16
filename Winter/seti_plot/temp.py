@@ -19,7 +19,7 @@ font = {'family' : 'DejaVu Sans',
 'size' : fontsize}
 MAX_IMSHOW_POINTS = (4096, 1268)
 
-
+#script with code for plotting hits
 
 def overlay_drift(f_event, f_start, f_stop, drift_rate, t_duration, offset='auto'):
     r'''

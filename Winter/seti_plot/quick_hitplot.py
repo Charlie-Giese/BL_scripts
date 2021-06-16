@@ -8,7 +8,7 @@ import argparse
 from turbo_seti.find_event.find_event import read_dat
 from turbo_seti import plot_event
 
-parser = argparse.ArgumentParser(description='Plot all hits in a .dat file for further inspection')
+parser = argparse.ArgumentParser(description='Plots hits in a very rough and ready manner, not super useful right now')
 
 parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
 parser.add_argument("-i", "--inputfile", help="Name of .fil/.dat file")

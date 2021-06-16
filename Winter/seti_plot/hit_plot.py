@@ -20,6 +20,8 @@ font = {'family' : 'DejaVu Sans',
 MAX_IMSHOW_POINTS = (4096, 1268)
 
 
+#makes plot of every hit in a .dat file
+
 try:
 	os.mkdir('./hit_pngs')
 except:
