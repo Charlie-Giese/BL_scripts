@@ -2,13 +2,9 @@
 
 These are all the scripts I used during my time as an intern with Breakthrough Listen. 
 
-Scripts in the folder rawudp_processing are for forming stokes vectors in .fil format from .rawudp files which are 
-produced at I-LOFAR using the udppacketmanager; https://github.com/David-McKenna/udpPacketManager
+'Summer' contains code from my early work and isn't hugely important in terms of SETI.
 
-Scripts in filterbank_processing were used mainly for plotting various aspects of filterbank files as well as the results of pulsar/frb searches using siproc.
-Sigproc is most easily installed using psrsoft or from source.
+'Winter' contains all the scripts I produced while working on the SETI pipeline at LOFAR-SE and I-LOFAR.
 
-Scripts are not super well documented right now, but most only need input constants and file locations to 'just work'
-
-See also a detailed report of the work carried out during this internship, some changes are still in works but it's definitely 98% done.
+Please see Instructions.pdf for a manual on how to run the SETI pipeline at both stations.
 
